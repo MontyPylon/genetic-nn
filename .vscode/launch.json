@@ -1,0 +1,30 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "train_lin",
+            "type": "python",
+            "request": "launch",
+            "program": "train_linear.py",
+            "console": "integratedTerminal",
+            "args": []
+        },
+        {
+            "name": "train_conv",
+            "type": "python",
+            "request": "launch",
+            "program": "train_conv.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "train_normal",
+            "type": "python",
+            "request": "launch",
+            "program": "train_normal.py",
+            "console": "integratedTerminal"
+        }
+    ]
+}
