@@ -92,15 +92,15 @@ class FCN(torch.nn.Module):
         def forward(self, x):
             return F.relu(self.c1(x))
 
-    def __init__(self, layers=[16, 32, 64, 128], n_output_channels=6, kernel_size=3, use_skip=True):
+    def __init__(self, layers=[16, 32, 64, 128], n_output_channels=10, kernel_size=3, use_skip=True):
         super().__init__()
         self.input_mean = torch.Tensor([0.3521554, 0.30068502, 0.28527516])
         self.input_std = torch.Tensor([0.18182722, 0.18656468, 0.15938024])
 
-        c = 3
+        c = 1
         self.use_skip = use_skip
         self.n_conv = len(layers)
-        skip_layer_size = [3] + layers[:-1]
+        skip_layer_size = [1] + layers[:-1]
         for i, l in enumerate(layers):
             self.add_module('conv%d' % i, self.Block(c, l, kernel_size, 2))
             c = l
@@ -113,7 +113,8 @@ class FCN(torch.nn.Module):
         self.classifier = torch.nn.Linear(c, n_output_channels)
 
     def forward(self, x):
-        z = (x - self.input_mean[None, :, None, None].to(x.device)) / self.input_std[None, :, None, None].to(x.device)
+        # z = (x - self.input_mean[None, :, None, None].to(x.device)) / self.input_std[None, :, None, None].to(x.device)
+        z = x
         up_activation = []
         for i in range(self.n_conv):
             # Add all the information required for skip connections
@@ -128,7 +129,6 @@ class FCN(torch.nn.Module):
             if self.use_skip:
                 z = torch.cat([z, up_activation[i]], dim=1)
 
-        z = z
         z = z.mean(dim=[2,3])
         return self.classifier(z)
 

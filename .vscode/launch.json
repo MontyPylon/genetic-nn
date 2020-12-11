@@ -5,10 +5,25 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "train_lin",
             "type": "python",
             "request": "launch",
             "program": "train_linear.py",
+            "console": "integratedTerminal",
+            "args": []
+        },
+        {
+            "name": "train_mnist",
+            "type": "python",
+            "request": "launch",
+            "program": "train_mnist.py",
             "console": "integratedTerminal",
             "args": []
         },
